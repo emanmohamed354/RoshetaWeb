@@ -1,0 +1,261 @@
+*{
+    font-family: 'Times New Roman', Times, serif;
+}
+.cartContainer {
+    padding: 20px;
+    overflow-x: hidden; // Prevent horizontal overflow
+
+    @media (max-width: 768px) {
+        padding: 10px;
+    }
+}
+.name
+{
+    text-transform: capitalize;
+    text-align: left;
+    margin-top: 20px;
+    cursor: pointer;
+}
+.name::after
+  {
+    content: "";
+    display: block;
+    margin: auto;
+    margin-top: 10px;
+    height: 1px;
+    width: 100px;
+    transition: all 0.5s;
+    background-color: #555454;
+    margin-left: 0;
+  }
+  .name:hover::after
+  {
+    width: 400px;
+  }
+
+.cartItems {
+    width: 100%; // Ensure it does not exceed the parent width
+}
+
+.cartItem {
+    display: flex;
+    align-items: center;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    transition: box-shadow 0.3s;
+    width: 100%; // Prevent overflow
+    box-sizing: border-box; // Include padding in width
+    &:hover {
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+}
+
+.cartItemImage {
+    width: 30%; /* Fixed width */
+    height: 100%; /* Fixed height */
+    object-fit: cover; /* Cover the area without distortion */
+}
+
+.cartItemDetails {
+    margin-left: 15px;
+    flex-grow: 1; /* Allow details to take available space */
+}
+.cartItemTitle{
+    padding:  10px 0;
+}
+.cartItemDescription {
+    font-size: 0.9em; /* Slightly smaller font size for description */
+    color: #666; /* Gray color for description text */
+    margin-bottom: 10px; /* Spacing between description and price */
+}
+
+.cartItemQuantity {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+
+    .quantityButton {
+        width: 30px; /* Fixed button width */
+        height: 30px; /* Fixed button height */
+        margin: 0 5px; /* Margin between buttons */
+        padding: 2px;
+    }
+
+    .quantityCount {
+        margin: 0 10px; /* Space around count */
+        font-weight: bold; /* Bold count */
+    }
+}
+.removeButton {
+    // background: linear-gradient(to right, #00f, #90ee90);
+    border: none; /* Remove default border */
+    color: white; /* Set text color for better contrast */
+    padding: 10px 20px; /* Adjust padding as needed */
+    border-radius: 5px; /* Optional: Add rounded corners */
+    cursor: pointer;
+    transition: background 0.3s ease; /* Smooth transition for background change */
+}
+
+
+.cartSummary {
+    background-color: #f9f9f9; /* Light background for contrast */
+    padding: 20px;
+    border: 1px solid;
+    border-color: #ccc;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin:30px;
+}
+
+.summaryDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px; /* Space before buttons */
+}
+
+.summaryItem {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.2rem;
+    padding: 10px 0; /* Space between text and numbers */
+    color:#666;
+}
+.divider {
+    border-top: 1px solid #797777;
+    margin: 15px 0; /* Space around the divider */
+}
+
+.clearCartButton {
+    margin-top: 10px;
+    width: 100%; /* Full width buttons */
+    
+}
+
+.checkoutButton {
+    margin-top: 10px;
+    width: 100%; /* Full width buttons */
+    background-color: rgb(7, 124, 124);
+}
+
+.totalSection {
+    font-size: 1.5rem; /* Larger font size for the Total section */
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.2rem;
+    padding: 10px 0; 
+    color: #404040 !important; /* Change this to the color you want for the total */
+}
+
+.h3{
+    font-size: x-large;
+    color:#404040;
+    margin-bottom: 30px;
+}
+
+.h4{
+   
+    color: #404040 ;
+}
+
+
+.payment-method {
+    margin-top: 20px;
+}
+
+.payment-title {
+    text-align: left;
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.payment-options {
+    flex: 1; /* Make both options take equal space */
+    margin: 5px;
+    padding: 15px;
+    // border: 1px solid #ddd;
+    // border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.payment-option {
+    display: flex;
+    margin-bottom: 15px;
+    align-items: center;
+    gap: 10px; // Space between the icon and the text
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.payment-option:hover {
+    background-color: #f9f9f9;
+    border-color: rgb(0, 0, 11);
+}
+
+.payment-icon {
+    font-size: 24px;
+    color: rgb(5, 109, 38); // Example color for the icon
+}
+
+.payment-details {
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+}
+
+.payment-subtitle {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.payment-description {
+    font-size: 12px;
+    color: #888;
+    margin-top: 5px;
+}
+
+.emptyCartContainer {
+    text-align: center; // Center the contents
+    margin-top: 20px; // Add some margin for spacing
+}
+
+.emptyCartImage {
+    margin-bottom: 30px;
+    width: 800px; // Set a width for the image
+    height: 380px; // Maintain aspect ratio
+}
+
+.browseProductsButton {
+    background-color: rgb(7, 124, 124); // Bootstrap primary color
+    color: white; // Text color
+    border: none; // Remove default border
+    border-radius: 5px; // Rounded corners
+    padding: 10px 20px; // Padding for the button
+    font-size: 16px; // Font size
+    cursor: pointer; // Pointer on hover
+    transition: background-color 0.3s ease, transform 0.2s ease; // Smooth transition for hover effects
+
+    &:hover {
+        background-color: rgb(7, 130, 130); // Darker shade on hover
+        transform: translateY(-2px); // Slightly lift the button on hover
+    }
+
+    &:focus {
+        outline: none; // Remove outline on focus
+    }
+}
+
+
+// .emptyCartMessage {
+//     margin-top: 10px; // Add some space above the message
+//     font-size: 1.2rem; // Optional: Change font size
+//     color: #555; // Optional: Change color for
+// }
+

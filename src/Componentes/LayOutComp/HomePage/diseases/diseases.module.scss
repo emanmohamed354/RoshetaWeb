@@ -1,0 +1,23 @@
+.images{
+   
+    height:80%;
+    margin-top: 15px;
+}
+.card{
+    border: 0;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+.card:hover 
+{
+    background-color: rgb(211, 210, 210);
+}
+.card:hover .text
+{
+    color: rgb(220, 53, 69);
+}
+.text{
+    
+    text-align: center;
+    transition: all 0.5s;
+}
