@@ -1,14 +1,15 @@
-.bg {
-    background:rgba(0, 0, 0, 0.4) url('../../../images/medical.jpg');
-    background-size: cover; 
-    background-blend-mode:hue;
-    background-position: center; 
-    position: fixed; 
-    top: 0; 
-    left: 0; 
-    width: 100vw; 
-    height: 100vh;
-    z-index: -1; 
+// src/Componentes/RegisterationComp/SignUp/signUp.module.scss
+
+.background-image {
+    background-image: url('../../../images/medical.jpg');
+    background-size: cover; // Makes the image cover the entire div
+    background-position: center; // Centers the image
+    position: fixed; // Fixes the position to cover the entire viewport
+    top: 0; // Aligns the top edge
+    left: 0; // Aligns the left edge
+    width: 100vw; // Sets the width to 100% of the viewport width
+    height: 100vh; // Sets the height to 100% of the viewport height
+    z-index: -1; // Places the image behind other elements
   }
   
   .container {
@@ -29,10 +30,10 @@
     width:80%;
     margin-left: auto;
     margin-right: auto;
-    background: rgb(247, 247, 231); // Adds a semi-transparent white background
+    background: rgba(255, 255, 255, 0.9); // Adds a semi-transparent white background
     padding: 40px; // Adds padding inside the form (increase for more space)
     border-radius: 0px; // Rounds the corners of the form
-    box-shadow: 0px 0px 10px 5px rgba(72, 71, 71, 0.5); // Adds a shadow for depth
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); // Adds a shadow for depth
   
     // Style input fields
     input[type="text"],
@@ -95,19 +96,20 @@
     padding: 10px 20px; /* Padding for the button */
     font-size: 20px; /* Font size */
     cursor: pointer; /* Pointer cursor on hover */
-    transition: all 0.8s; 
+    transition: background 0.3s; /* Smooth transition for background change */
     width: 90%;
-    height: 50px;
+    height: 43px;
     margin-left: auto;
     margin-right: auto;
     display: flex;
     text-align: center;
     justify-content: center;
-    border-radius: 17px;  
-  
-  }
-  .gradient-button:hover{
-    background-color:red ;
+    border-radius: 17px;
+    
+    
+    &:hover {
+      background: linear-gradient(to right, #00f, #90ee90); /* Reverse gradient on hover */
+    }
   }
 
   h1{
