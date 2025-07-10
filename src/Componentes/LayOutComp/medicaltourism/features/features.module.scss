@@ -32,7 +32,7 @@
     margin-bottom: 20px; 
     border-radius: 15px; 
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
-    transition: all 0.5s; // Smooth transition for hover effect
+    transition: all 0.5s;
     margin: auto;
     margin-top:20px ;
     width: 100%; 
@@ -41,7 +41,7 @@
 
     cursor: pointer;
     &:hover {
-      transform: scale(1.05); // Scale effect on hover
+      transform: scale(1.05); 
     }
   
     .card-body {

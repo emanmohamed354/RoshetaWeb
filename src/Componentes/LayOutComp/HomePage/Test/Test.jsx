@@ -34,7 +34,7 @@ const Test = () => {
                             </li><br />
                         </ul>
 
-                        <Link to="/MedicalTests"> {/* Wrap the button with Link */}
+                        <Link to="/MedicalTests"> 
                             <Button variant="success" className={styles.button}>
                                 Upload
                             </Button>

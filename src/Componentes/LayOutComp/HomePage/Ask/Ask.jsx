@@ -4,7 +4,7 @@ import styles from './Ask.module.scss';
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import { Container } from 'react-bootstrap/esm';
 import health from '../../../../images/health.png';
-import { Link } from 'react-router-dom'; // Import Link for routing
+import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Ask = () => {
@@ -15,11 +15,11 @@ const Ask = () => {
                     <div className={styles.firstCont}>
                         <h2 className='text-light'>Rosheta</h2>
                         <p>Order your medications and everything you need from our pharmacy.</p>
-                        <Link to="/Cart"> {/* Link to /Cart */}
+                        <Link to="/Cart"> 
                             <Button 
                                 variant="light" 
                                 className={styles.button} 
-                                onClick={() => window.scrollTo(0, 0)} // Scroll to top when clicked
+                                onClick={() => window.scrollTo(0, 0)} 
                             >
                                 Order Now <FontAwesomeIcon icon={faCartShopping} size="lg" />
                             </Button>

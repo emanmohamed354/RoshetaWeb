@@ -1,1 +1,1 @@
-export const BaseUrl="https://roshetaa-eman-mohammeds-projects-b6f9bb20.vercel.app/"
+export const BaseUrl="https://pharmacy-backend845-ezf4.vercel.app"

@@ -63,7 +63,7 @@ export default function MedicalTests() {
               </form>
             </div>
           </div>
-          <div className="row  mt-5 pb-5  ms-3 g-5 ">
+          <div className="row  mt-5 pb-5   g-5 ">
             {loading ? (
               <div className=" d-flex w-100 h-100  my-5 py-5 justify-content-center align-items-center">
               <span className={`${style.loader} fa-10x my-5  `}></span>
@@ -73,9 +73,9 @@ export default function MedicalTests() {
               filteredTests.map((item, index) => (
                 <div
                   key={index}
-                  className={`${style.pp}  col-md-4   text-center`}
+                  className={`  col-md-4 col-sm-6  text-center`}
                 >
-                  <div className={`${style.card}`}>
+                  <div className={`${style.card} m-auto`}>
                     <div className={`${style.carddetails}`}>
                       <p className={`${style.texttitle}`}>{item.title}</p>
                       <p className={`${style.textbody}`}>

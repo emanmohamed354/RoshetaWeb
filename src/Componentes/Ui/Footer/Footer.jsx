@@ -5,7 +5,7 @@ import Styles from './Footer.module.scss';
 
 export default function Footer() {
   return (
-    <MDBFooter className={['text-center text-lg-start text-light mt-4', Styles.footer]}>
+    <MDBFooter className={['text-center text-lg-start text-light ', Styles.footer]}>
       <section className='d-flex justify-content-center justify-content-lg-between p-4 border-bottom' style={{ borderColor: 'rgba(255, 255, 255, 0.1)' }}>
         <div className='me-5 d-none d-lg-block'>
           <span>Get connected with us on social networks:</span>
@@ -81,7 +81,7 @@ export default function Footer() {
               </p>
             </MDBCol>
 
-<MDBCol md="3" lg="2" xl="2" className='mx-auto mb-4'>
+           <MDBCol md="3" lg="2" xl="2" className='mx-auto mb-4'>
               <h6 className='text-uppercase fw-bold mb-4 text-light'>Useful links</h6>
               <p>
                 <a href='#!' className='text-reset text-light' style={{ textDecoration: 'none' }}>

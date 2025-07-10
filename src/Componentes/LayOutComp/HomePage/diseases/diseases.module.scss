@@ -1,11 +1,12 @@
 .images{
    
-    height:80%;
+    height: 160px !important;
     margin-top: 15px;
 }
 .card{
     border: 0;
     cursor: pointer;
+    height: 240px;
     transition: all 0.5s;
 }
 .card:hover 
@@ -20,4 +21,10 @@
     
     text-align: center;
     transition: all 0.5s;
+    text-decoration: none;
+}
+.link
+{
+    text-decoration: none;
+    color: black;
 }

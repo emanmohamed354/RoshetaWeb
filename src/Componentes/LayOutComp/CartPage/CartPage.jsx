@@ -5,27 +5,34 @@ import styles from './CartPage.module.scss';
 import { Container } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import Footer from '../../Ui/Footer/Footer';
-import axios from 'axios'; 
-import emptyCartImage from '../../../images/cartempty.png';
+import axios from 'axios';
+import emptyCartImage from '../../../images/Cartempty.png';
 import { useNavigate } from 'react-router-dom';
-
+import { BaseUrl } from '../../BaseUrl/base'
 
 const CartPage = () => {
-    const navigate = useNavigate(); // Initialize the navigate function
+    const navigate = useNavigate(); 
     const { cart, UpdateProductCart, deleteProductCart, clearCart } = useContext(FetchCartContext);
     const { userData } = useContext(mediaContext);
 
+    // Add loading state
+    if (!cart) {
+        return <div>Loading cart...</div>;
+    }
+
+    const cartItems = cart?.items || [];
+
     const [totals, setTotals] = useState({
         subtotal: 0,
-        shippingFees: 0,
+        shippingFees: 40,
         totalPrice: 0,
     });
 
     const [paymentMethod, setPaymentMethod] = useState('cash');
 
     useEffect(() => {
-        const subtotal = cart.items.reduce((acc, item) => {
-            const price = parseFloat(item.productId.price);
+        const subtotal = cartItems.reduce((acc, item) => {
+            const price = item.productId.offer? parseFloat(item.productId.price)*0.8 : parseFloat(item.productId.price);
             const count = item.quantity;
 
             if (!isNaN(price) && !isNaN(count)) {
@@ -37,7 +44,7 @@ const CartPage = () => {
         const totalPrice = subtotal + totals.shippingFees;
 
         setTotals({ subtotal, shippingFees: totals.shippingFees, totalPrice });
-    }, [cart.items, totals.shippingFees]);
+    }, [cartItems, totals.shippingFees]);
 
     const handlePayment = () => {
         if (paymentMethod === 'cash') {
@@ -46,58 +53,109 @@ const CartPage = () => {
             handleVisaPayment();
         }
     };
-
-    const handleCashPayment = () => {
-        // Logic for handling cash payment
-        toast.success('Payment processed using Cash on Delivery');
-    };
-
-    const handleVisaPayment = () => {
-        // Logic for handling Visa payment
-        toast.success('Payment processed using Visa');
-    };
-
-    const handleQuantityChange = (productId, newQuantity, maxQuantity) => {
-        if (newQuantity > 0 && newQuantity <= maxQuantity) {
-            UpdateProductCart(productId, newQuantity);
-        } else {
-            toast.error('Invalid quantity');
+    
+    const handleCashPayment = async () => {
+        try {
+            const response = await axios.post(`${BaseUrl}/carts/payment/cash`, {
+                userId: userData.userId,
+                items: cartItems.map(item => ({  // Use cartItems instead of cart.items
+                    productId: item.productId._id,
+                    quantity: item.quantity,
+                })),
+            });
+            if (!response.data.success) {
+                throw new Error('Cash payment failed.');
+            }
+            toast.success('Cash payment successful. ' , {
+                autoClose: 2000,
+                theme: 'dark',
+                position: 'top-center',
+            });
+            clearCart();
+        } catch (error) {
+            console.error('Cash Payment Error:', error);
+            toast.error('Cash payment failed. Please try again.', {
+                autoClose: 2000,
+                theme: 'dark',
+                position: 'top-center',
+            });
         }
     };
     
-    const handleCheckout = () => {
-        if (cart.items.length === 0) {
-            toast.error('Your cart is empty. Please add items to your cart before proceeding.');
+    const handleVisaPayment = async () => {
+        try {
+            const payload = {
+                userId: userData.userId,
+                items: cartItems.map(item => ({  // Use cartItems instead of cart.items
+                    productId: item.productId._id,
+                    quantity: item.quantity,
+                })),
+                paymentMethod: 'Credit Card',
+            };
+            console.log('Request Payload:', payload);
+    
+            const response = await axios.post(`${BaseUrl}/payment/create-payment`, payload);
+    
+            if (!response.data.paymentToken) {
+                throw new Error('Payment token is missing from the response.');
+            }
+    
+            const orderId = response.data.orderId; 
+            const paymentUrl = `https://accept.paymobsolutions.com/api/acceptance/iframes/${871391}?payment_token=${response.data.paymentToken}`;
+            
+            window.open(paymentUrl, '_blank');
+    
+            clearCart(); 
+    
+        } catch (error) {
+            console.error('Payment Error:', error);
+            toast.error('Payment failed. Please try again.', {
+                autoClose: 2000,
+                theme: 'dark',
+                position: 'top-center',
+            });
+        }
+    };
+    
+    const handleQuantityChange = (productId, newCount, stockQuantity) => {
+        const item = cartItems.find(item => item.productId._id === productId);  // Use cartItems
+        if (!item) return;
+
+        if (newCount > stockQuantity) {
+            toast.error(`Cannot exceed stock quantity of ${stockQuantity} units`, {
+                autoClose: 1000,
+                theme: 'dark',
+                position: 'bottom-center',
+            });
             return;
         }
-    
-        // Proceed to the checkout process, e.g., navigate to a checkout page
-        alert('Proceeding to checkout...');
-    
-        // Clear the cart after checkout
-        clearCart();
-    };
 
+        if (newCount < 1) {
+            deleteProductCart(productId);
+            return;
+        }
+
+        UpdateProductCart(productId, newCount);
+    };
 
     return (
         <div>
             <Container>
                 <h2 className={styles.name}>
-                    {userData.userName ? `${userData.userName}'s Cart` : "Your Cart"}
+                    {userData?.userName ? `${userData.userName}'s Cart` : "Your Cart"}
                 </h2>
                 <div className={`row ${styles.cartContainer}`}>
                     <div className="col-12 col-lg-8">
-                        {cart.items.length === 0 ? (
+                        {cartItems.length === 0 ? (
                             <div className={styles.emptyCartContainer}>
-                            <img src={emptyCartImage} alt="Your cart is empty" className={styles.emptyCartImage} />
-                            {/* <p className={styles.emptyCartMessage}>Your cart is empty.</p> */}
+                            <img src={emptyCartImage} alt="Your cart is empty" className={`img-fluid ${styles.emptyCartImage}`} />
                             <button onClick={() => navigate('/products')} className={styles.browseProductsButton}>
                                 Browse Products
                             </button>
                         </div>
                         ) : (
                             <div className={styles.cartItems}>
-                                {cart.items.map(item => (
+                                {cartItems.map(item => (
                                     <div key={item.productId._id} className={`row mb-3 ${styles.cartItem}`}>
                                         <div className="col-12 d-flex align-items-center">
                                             <img 
@@ -108,7 +166,7 @@ const CartPage = () => {
                                             <div className={`d-flex flex-column ${styles.cartItemDetails}`}>
                                                 <h4 className={styles.cartItemTitle}>{item.productId.name}</h4>
                                                 <p className={styles.cartItemDescription}>{item.productId.description}</p>
-                                                <p className={styles.cartItemPrice}>Price: {parseFloat(item.productId.price).toFixed(2)} EG</p>
+                                                <p className={styles.cartItemPrice}>Price: {item.productId.offer? parseFloat(item.productId.price*0.8).toFixed(2) :parseFloat(item.productId.price).toFixed(2)}EG</p>
                                                 <p className={styles.cartItemStock}>Total in Stock: {item.productId.quantity} units</p>
                                                 <div className={`d-flex align-items-center ${styles.cartItemQuantity}`}>
                                                     <button 
@@ -139,7 +197,37 @@ const CartPage = () => {
                         )}
                     </div>
 
-                    <div className="col-12 col-lg-4">
+                    <div className="col-12 col-lg-4 ">
+                        {/* Order Summary Section */}
+                        <div className={styles.cartSummary}>
+                            <h3 className={styles.h3}>Order Summary</h3>
+                            <div className={styles.summaryDetails}>
+                                <div className={styles.summaryItem}>
+                                    <span>Subtotal </span>
+                                    <span>{totals.subtotal.toFixed(2)} EGY</span>
+                                </div>
+                                <div className={styles.summaryItem}>
+                                    <span>Shipping Fees </span>
+                                    <span>{totals.shippingFees} EGY</span>
+                                </div>
+                                <div className={[styles.summaryItem]}>
+                                    <span>Total Products </span>
+                                    <span>{cartItems.reduce((acc, item) => acc + item.quantity, 0)} items</span>
+                                </div>
+                                <hr className={styles.divider} />
+                                <div className={styles.totalSection}>
+                                    <h4 className={styles.h4}>Total</h4>
+                                    <h4 className={styles.h4}>{totals.totalPrice.toFixed(2)} EGY</h4>
+                                </div>
+                            </div>
+                            <button 
+                                onClick={() => clearCart()} 
+                                className={`btn btn-danger ${styles.clearCartButton}`}
+                                disabled={cartItems.length === 0}
+                            >
+                                Clear Cart
+                            </button>
+                        </div>
                         {/* Payment Section */}
                         <div className={styles.cartSummary}>
                             <h4 className={styles.h4}>Payment Method</h4>
@@ -177,51 +265,17 @@ const CartPage = () => {
                                     </div>
                                 </div>
                             </div>
-                            <button onClick={handlePayment} className={`btn btn-success ${styles.checkoutButton}`}>
-                                SELECT
-                            </button>
-                        </div>
-
-                        {/* Order Summary Section */}
-                        <div className={styles.cartSummary}>
-                            <h3 className={styles.h3}>Order Summary</h3>
-                            <div className={styles.summaryDetails}>
-                                <div className={styles.summaryItem}>
-                                    <span>Subtotal </span>
-                                    <span>{totals.subtotal.toFixed(2)} EGY</span>
-                                </div>
-                                <div className={styles.summaryItem}>
-                                    <span>Shipping Fees </span>
-                                    <span>{totals.shippingFees} EGY</span>
-                                </div>
-                                <div className={[styles.summaryItem]}>
-                                    <span>Total Products </span>
-                                    <span>{cart.items.reduce((acc, item) => acc + item.quantity, 0)} items</span>
-                                </div>
-                                <hr className={styles.divider} />
-                                <div className={styles.totalSection}>
-                                    <h4 className={styles.h4}>Total</h4>
-                                    <h4 className={styles.h4}>{totals.totalPrice.toFixed(2)} EGY</h4>
-                                </div>
-                            </div>
                             <button 
+                                onClick={handlePayment} 
                                 className={`btn btn-success ${styles.checkoutButton}`}
-                                onClick={handleCheckout}
-                                disabled={cart.items.length === 0}
+                                disabled={cartItems.length === 0}
                             >
-                                CHECKOUT
-                            </button>
-                            <button 
-                                onClick={clearCart} 
-                                className={`btn btn-danger ${styles.clearCartButton}`}
-                            >
-                                Clear Cart
+                                Click to order
                             </button>
                         </div>
                     </div>
                 </div>
             </Container>
-            <Footer/>
         </div>
     );
 };

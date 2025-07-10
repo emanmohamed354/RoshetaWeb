@@ -1,9 +1,9 @@
 import React from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 import img4 from '../../../../images/slider1.jpg';
-import img1 from '../../../../images/slider2.jpg';
+import img1 from '../../../../images/slider22.jpg';
 import img3 from '../../../../images/slider3.jpg'; 
-import img2 from '../../../../images/slider4.webp'; 
+import img2 from '../../../../images/slider55.jpg'; 
 import img5 from '../../../../images/slider5.jpeg'; 
 
 import Styles from './slider.module.scss';

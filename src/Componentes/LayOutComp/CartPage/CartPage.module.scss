@@ -3,7 +3,7 @@
 }
 .cartContainer {
     padding: 20px;
-    overflow-x: hidden; // Prevent horizontal overflow
+    overflow-x: hidden;
 
     @media (max-width: 768px) {
         padding: 10px;
@@ -12,12 +12,13 @@
 .name
 {
     text-transform: capitalize;
-    text-align: left;
+    text-align: center;
     margin-top: 20px;
     cursor: pointer;
 }
 .name::after
   {
+    text-align: center;
     content: "";
     display: block;
     margin: auto;
@@ -26,7 +27,7 @@
     width: 100px;
     transition: all 0.5s;
     background-color: #555454;
-    margin-left: 0;
+    
   }
   .name:hover::after
   {
@@ -34,7 +35,7 @@
   }
 
 .cartItems {
-    width: 100%; // Ensure it does not exceed the parent width
+    width: 100%; 
 }
 
 .cartItem {
@@ -45,30 +46,30 @@
     padding: 15px;
     background-color: #f9f9f9;
     transition: box-shadow 0.3s;
-    width: 100%; // Prevent overflow
-    box-sizing: border-box; // Include padding in width
+    width: 100%;
+    box-sizing: border-box; 
     &:hover {
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
 }
 
 .cartItemImage {
-    width: 30%; /* Fixed width */
-    height: 100%; /* Fixed height */
-    object-fit: cover; /* Cover the area without distortion */
+    width: 30%; 
+    height: 100%; 
+    object-fit: cover; 
 }
 
 .cartItemDetails {
     margin-left: 15px;
-    flex-grow: 1; /* Allow details to take available space */
+    flex-grow: 1; 
 }
 .cartItemTitle{
     padding:  10px 0;
 }
 .cartItemDescription {
-    font-size: 0.9em; /* Slightly smaller font size for description */
-    color: #666; /* Gray color for description text */
-    margin-bottom: 10px; /* Spacing between description and price */
+    font-size: 0.9em; 
+    color: #666; 
+    margin-bottom: 10px; 
 }
 
 .cartItemQuantity {
@@ -77,36 +78,37 @@
     margin-top: 10px;
 
     .quantityButton {
-        width: 30px; /* Fixed button width */
-        height: 30px; /* Fixed button height */
-        margin: 0 5px; /* Margin between buttons */
+        width: 30px; 
+        height: 30px; 
+        margin: 0 5px; 
         padding: 2px;
     }
 
     .quantityCount {
-        margin: 0 10px; /* Space around count */
-        font-weight: bold; /* Bold count */
+        margin: 0 10px; 
+        font-weight: bold; 
     }
 }
 .removeButton {
     // background: linear-gradient(to right, #00f, #90ee90);
-    border: none; /* Remove default border */
-    color: white; /* Set text color for better contrast */
-    padding: 10px 20px; /* Adjust padding as needed */
-    border-radius: 5px; /* Optional: Add rounded corners */
+    border: none; 
+    color: white; 
+    padding: 10px 20px; 
+    border-radius: 5px; 
     cursor: pointer;
-    transition: background 0.3s ease; /* Smooth transition for background change */
+    transition: background 0.3s ease; 
 }
 
 
 .cartSummary {
-    background-color: #f9f9f9; /* Light background for contrast */
+    background-color: #f9f9f9; 
     padding: 20px;
     border: 1px solid;
     border-color: #ccc;
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin:30px;
+    margin: 0 30px;
+    margin-bottom: 30px;
 }
 
 .summaryDetails {
@@ -141,22 +143,23 @@
 }
 
 .totalSection {
-    font-size: 1.5rem; /* Larger font size for the Total section */
+    font-size: 1.5rem; 
     display: flex;
     justify-content: space-between;
     font-size: 1.2rem;
     padding: 10px 0; 
-    color: #404040 !important; /* Change this to the color you want for the total */
+    color: #404040 !important; 
 }
 
 .h3{
     font-size: x-large;
     color:#404040;
     margin-bottom: 30px;
+    text-align: center;
 }
 
 .h4{
-   
+    text-align: center;
     color: #404040 ;
 }
 
@@ -172,7 +175,7 @@
 }
 
 .payment-options {
-    flex: 1; /* Make both options take equal space */
+    flex: 1; 
     margin: 5px;
     padding: 15px;
     // border: 1px solid #ddd;
@@ -186,7 +189,7 @@
     display: flex;
     margin-bottom: 15px;
     align-items: center;
-    gap: 10px; // Space between the icon and the text
+    gap: 10px; 
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
@@ -201,7 +204,7 @@
 
 .payment-icon {
     font-size: 24px;
-    color: rgb(5, 109, 38); // Example color for the icon
+    color: rgb(5, 109, 38); 
 }
 
 .payment-details {
@@ -222,40 +225,37 @@
 }
 
 .emptyCartContainer {
-    text-align: center; // Center the contents
-    margin-top: 20px; // Add some margin for spacing
+    text-align: center; 
+    margin-top: 20px; 
 }
 
 .emptyCartImage {
+   
     margin-bottom: 30px;
-    width: 800px; // Set a width for the image
-    height: 380px; // Maintain aspect ratio
+    width: 800px; 
+    height: 380px; 
 }
 
 .browseProductsButton {
-    background-color: rgb(7, 124, 124); // Bootstrap primary color
-    color: white; // Text color
-    border: none; // Remove default border
-    border-radius: 5px; // Rounded corners
-    padding: 10px 20px; // Padding for the button
-    font-size: 16px; // Font size
-    cursor: pointer; // Pointer on hover
-    transition: background-color 0.3s ease, transform 0.2s ease; // Smooth transition for hover effects
+    background-color: rgb(7, 124, 124); 
+    color: white; 
+    border: none; 
+    border-radius: 5px; 
+    padding: 10px 20px; 
+    font-size: 16px; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease, transform 0.2s ease; 
 
     &:hover {
-        background-color: rgb(7, 130, 130); // Darker shade on hover
-        transform: translateY(-2px); // Slightly lift the button on hover
+        background-color: rgb(7, 130, 130); 
+        transform: translateY(-2px); 
     }
 
     &:focus {
-        outline: none; // Remove outline on focus
+        outline: none;
     }
 }
 
 
-// .emptyCartMessage {
-//     margin-top: 10px; // Add some space above the message
-//     font-size: 1.2rem; // Optional: Change font size
-//     color: #555; // Optional: Change color for
-// }
+
 

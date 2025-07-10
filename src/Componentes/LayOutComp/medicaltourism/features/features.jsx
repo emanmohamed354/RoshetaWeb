@@ -1,10 +1,10 @@
 import React from 'react';
 import { Container, Row, Col, Card } from 'react-bootstrap';
-import Styles from './features.module.scss'; // Import the SCSS module
+import Styles from './features.module.scss'; 
 
 function Features() {
   return (
-    <Container >
+    <Container className='mb-4' >
       <div className={Styles.container}>
         <h1 className={Styles.title}>Why Choose Egypt for Your Next Medical Journey?</h1>
         <Row>
