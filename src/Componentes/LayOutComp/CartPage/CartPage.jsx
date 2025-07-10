@@ -6,7 +6,7 @@ import { Container } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import Footer from '../../Ui/Footer/Footer';
 import axios from 'axios';
-import emptyCartImage from '../../../images/Cartempty.png';
+import emptyCartImage from 'images/Cartempty.png';
 import { useNavigate } from 'react-router-dom';
 import { BaseUrl } from '../../BaseUrl/base'
 
