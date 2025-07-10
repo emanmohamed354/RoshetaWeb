@@ -1,4 +1,3 @@
-console.log('Current file:', __filename);
 import React, { useContext, useEffect, useState } from 'react';
 import { FetchCartContext } from './../../../Context/Cart';
 import { mediaContext } from './../../../Context/MediaStore';
